@@ -7,7 +7,7 @@ this example creates simple go extension to enable Envoy HTTP filter, this filte
 ### run envoy instance with the go plugin
 
 ```bash
-$ git clone https://github.com/ardikabs/gonvoy
+$ git clone https://github.com/commoddity/gonvoy
 $ cd gonvoy
 $ docker-compose up --build
 ```

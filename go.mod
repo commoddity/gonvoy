@@ -1,4 +1,4 @@
-module github.com/ardikabs/gonvoy
+module github.com/commoddity/gonvoy
 
 go 1.22.1
 
