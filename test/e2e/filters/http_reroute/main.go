@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/ardikabs/gonvoy"
+	"github.com/commoddity/gonvoy"
 )
 
 const filterName = "http_reroute"

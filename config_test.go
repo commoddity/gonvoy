@@ -3,7 +3,7 @@ package gonvoy
 import (
 	"testing"
 
-	mock_envoy "github.com/ardikabs/gonvoy/test/mock/envoy"
+	mock_envoy "github.com/commoddity/gonvoy/test/mock/envoy"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

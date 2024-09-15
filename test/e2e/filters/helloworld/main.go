@@ -1,6 +1,6 @@
 package main
 
-import "github.com/ardikabs/gonvoy"
+import "github.com/commoddity/gonvoy"
 
 const filterName = "helloworld"
 

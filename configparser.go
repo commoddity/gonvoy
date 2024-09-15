@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/ardikabs/gonvoy/pkg/util"
 	xds "github.com/cncf/xds/go/xds/type/v3"
+	"github.com/commoddity/gonvoy/pkg/util"
 	"github.com/tidwall/gjson"
 
 	"github.com/envoyproxy/envoy/contrib/golang/common/go/api"

@@ -1,7 +1,7 @@
 package mystats
 
 import (
-	"github.com/ardikabs/gonvoy"
+	"github.com/commoddity/gonvoy"
 )
 
 const filterName = "mystats"

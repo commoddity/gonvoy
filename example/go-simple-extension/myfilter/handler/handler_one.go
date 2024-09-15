@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/ardikabs/gonvoy"
+	"github.com/commoddity/gonvoy"
 )
 
 type HandlerOne struct {

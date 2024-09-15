@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/ardikabs/gonvoy"
+	"github.com/commoddity/gonvoy"
 )
 
 const filterName = "http_headers_modifier"

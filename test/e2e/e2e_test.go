@@ -7,8 +7,8 @@ import (
 	"flag"
 	"testing"
 
-	"github.com/ardikabs/gonvoy/pkg/suite"
-	"github.com/ardikabs/gonvoy/test/e2e/tests"
+	"github.com/commoddity/gonvoy/pkg/suite"
+	"github.com/commoddity/gonvoy/test/e2e/tests"
 )
 
 func TestE2E(t *testing.T) {

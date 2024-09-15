@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ardikabs/gonvoy/pkg/suite"
+	"github.com/commoddity/gonvoy/pkg/suite"
 	"github.com/stretchr/testify/require"
 )
 

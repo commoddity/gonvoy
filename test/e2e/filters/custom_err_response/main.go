@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/ardikabs/gonvoy"
+	"github.com/commoddity/gonvoy"
 )
 
 const filterName = "custom_err_response"
@@ -21,7 +21,6 @@ func init() {
 func main() {}
 
 type Filter struct{}
-
 
 func (Filter) OnBegin(c gonvoy.RuntimeContext, ctrl gonvoy.HttpFilterController) error {
 	ctrl.AddHandler(Handler{})

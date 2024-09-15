@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	. "github.com/ardikabs/gonvoy/pkg/types"
+	. "github.com/commoddity/gonvoy/pkg/types"
 	"github.com/stretchr/testify/assert"
 )
 
