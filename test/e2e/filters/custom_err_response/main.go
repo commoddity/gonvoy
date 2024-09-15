@@ -20,11 +20,8 @@ func main() {}
 
 const customErrResponseFilterName = "custom_err_response"
 
-<<<<<<< HEAD
-=======
 type Filter struct{}
 
->>>>>>> filter-factory-func-instead-of-reflect
 func (Filter) OnBegin(c gonvoy.RuntimeContext, ctrl gonvoy.HttpFilterController) error {
 	ctrl.AddHandler(Handler{})
 	return nil
