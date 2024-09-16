@@ -2,8 +2,6 @@ package gonvoy
 
 import (
 	"sync"
-
-	"github.com/commoddity/gonvoy/pkg/util"
 )
 
 // Cache is an interface that defines methods for storing and retrieving data in an internal cache.
@@ -13,24 +11,6 @@ type Cache interface {
 	//
 	// Please use caution! The Store function overwrites any existing data.
 	Store(key, value any)
-
-	// Load retrieves a value associated with a specific key and assigns it to the receiver.
-	//
-	// It returns true if a compatible value is successfully loaded,
-	// false if no value is found, or an error occurs during the process.
-	//
-	// If the receiver is not a pointer to the stored data type,
-	// Load will return an ErrIncompatibleReceiver.
-	//
-	// Example usage:
-	//   type mystruct struct{}
-	//
-	//   data := new(mystruct)
-	//   cache.Store("keyName", data)
-	//
-	//   receiver := new(mystruct)
-	//   _, _ = cache.Load("keyName", &receiver)
-	Load(key, receiver any) (ok bool, err error)
 }
 
 type inmemoryCache struct {
@@ -45,19 +25,41 @@ func (c *inmemoryCache) Store(key, value any) {
 	c.stash.Store(key, value)
 }
 
-func (c *inmemoryCache) Load(key, receiver any) (bool, error) {
-	if receiver == nil {
-		return false, ErrNilReceiver
-	}
+// LoadValue retrieves a value associated with a specific key from the cache
+// and returns it as the specified type T.
+//
+// It returns the value of type T, a boolean indicating whether the value
+// was found, and an error if an incompatible type is received.
+//
+// The function performs a type-safe cast to the specified type T, and
+// if the stored value cannot be cast to T, it returns ErrIncompatibleReceiver.
+//
+// Example usage:
+//
+//	type mystruct struct{}
+//
+//	data := mystruct{}
+//	cache.Store("keyName", data)
+//
+//	result, found, err := LoadValue[mystruct](cache, "keyName")
+//	if err != nil {
+//	    // Handle error (e.g., ErrIncompatibleReceiver)
+//	}
+//	if found {
+//	    // Use result (which is of type mystruct)
+//	}
+func LoadValue[T any](c *inmemoryCache, key interface{}) (T, bool, error) {
+	var zero T
 
 	v, ok := c.stash.Load(key)
 	if !ok {
-		return false, nil
+		return zero, false, nil
 	}
 
-	if !util.CastTo(receiver, v) {
-		return false, ErrIncompatibleReceiver
+	src, ok := v.(T)
+	if !ok {
+		return zero, false, ErrIncompatibleReceiver
 	}
 
-	return true, nil
+	return src, true, nil
 }

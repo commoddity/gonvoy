@@ -16,7 +16,7 @@ func TestCache_StoreAndLoad(t *testing.T) {
 		lc.Store("foo", source)
 
 		receiver := new(bytes.Reader)
-		ok, err := lc.Load("foo", &receiver)
+		_, ok, err := LoadValue[*bytes.Reader](lc, "foo")
 		require.NoError(t, err)
 		assert.True(t, ok)
 		assert.Equal(t, source, receiver)
@@ -28,14 +28,15 @@ func TestCache_StoreAndLoad(t *testing.T) {
 		lc.Store("bar", src)
 
 		dest := mystruct{}
-		ok, err := lc.Load("bar", &dest)
+		_, ok, err := LoadValue[mystruct](lc, "bar")
 		require.NoError(t, err)
 		assert.True(t, ok)
 		assert.Equal(t, src, dest)
 	})
 
 	t.Run("a nil receiver, returns an error", func(t *testing.T) {
-		ok, err := lc.Load("bar", nil)
+		type mystruct struct{}
+		_, ok, err := LoadValue[mystruct](lc, "bar")
 		assert.False(t, ok)
 		assert.ErrorIs(t, err, ErrNilReceiver)
 	})
@@ -45,15 +46,13 @@ func TestCache_StoreAndLoad(t *testing.T) {
 		src := new(mystruct)
 		lc.Store("foobar", src)
 
-		dest := mystruct{}
-		ok, err := lc.Load("foobar", &dest)
+		_, ok, err := LoadValue[mystruct](lc, "foobar")
 		assert.False(t, ok)
 		assert.ErrorIs(t, err, ErrIncompatibleReceiver)
 	})
 
 	t.Run("if no data found during a Load, then returns false without an error", func(t *testing.T) {
-		dest := struct{}{}
-		ok, err := lc.Load("data-not-exists", &dest)
+		_, ok, err := LoadValue[struct{}](lc, "data-not-exists")
 		assert.False(t, ok)
 		assert.NoError(t, err)
 	})

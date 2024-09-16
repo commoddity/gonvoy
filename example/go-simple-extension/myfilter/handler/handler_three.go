@@ -1,3 +1,5 @@
+//go:build example
+
 package handler
 
 import (
@@ -22,8 +24,8 @@ func (h *HandlerThree) OnRequestHeader(c gonvoy.Context) error {
 		c.RequestHeader().Set(k, v)
 	}
 
-	data := new(globaldata)
-	if ok, err := c.GetCache().Load(GLOBAL, &data); ok && err == nil {
+	data, ok, err := gonvoy.LoadValue[globaldata](c.GetCache(), GLOBAL)
+	if ok && err == nil {
 		data.Time3 = time.Now()
 		log.Info("got existing global data", "data", data, "pointer", fmt.Sprintf("%p", data))
 		c.GetCache().Store(GLOBAL, data)

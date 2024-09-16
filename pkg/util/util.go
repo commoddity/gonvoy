@@ -9,18 +9,6 @@ import (
 	"strings"
 )
 
-// CastTo casting a value to another target, it basically share the same value or uses the same address.
-// A target must be a pointer to be able to receive the value from the source.
-func CastTo(target interface{}, source interface{}) bool {
-	t := reflect.ValueOf(target).Elem()
-	src := reflect.ValueOf(source)
-	if !src.Type().AssignableTo(t.Type()) {
-		return false
-	}
-	t.Set(src)
-	return true
-}
-
 // ReplaceAllEmptySpace replaces all empty space as well as reserved escape characters such as
 // tab, newline, carriage return, and so forth.
 func ReplaceAllEmptySpace(s string) string {

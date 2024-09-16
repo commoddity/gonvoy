@@ -1,3 +1,5 @@
+//go:build example
+
 package handler
 
 import (
@@ -32,8 +34,8 @@ func (h *HandlerTwo) OnRequestHeader(c gonvoy.Context) error {
 		return c.String(http.StatusServiceUnavailable, "service unavailable", gonvoy.LocalReplyWithHTTPHeaders(gonvoy.NewGatewayHeaders()))
 	}
 
-	data := new(globaldata)
-	if ok, err := c.GetCache().Load(GLOBAL, &data); ok && err == nil {
+	data, ok, err := gonvoy.LoadValue[globaldata](c.GetCache(), GLOBAL)
+	if ok && err == nil {
 		data.Time2 = time.Now()
 		log.Info("got existing global data", "data", data, "pointer", fmt.Sprintf("%p", data))
 		c.GetCache().Store(GLOBAL, data)
